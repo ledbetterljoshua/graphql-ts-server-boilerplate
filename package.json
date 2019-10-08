@@ -1,0 +1,63 @@
+{
+  "name": "graphql-ts-server-boilerplate",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
+    "test-dev": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --watchAll",
+    "test": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --forceExit",
+    "gen": "cross-env TS_NODE_FILES=true ts-node src/scripts/createTypes.ts --forceExit"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/ioredis": "^4.0.18",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.11",
+    "@types/node-fetch": "^2.5.2",
+    "@types/sparkpost": "^2.1.4",
+    "@types/uuid": "^3.4.5",
+    "@types/yup": "^0.26.24",
+    "cross-env": "^6.0.3",
+    "gql2ts": "^1.10.1",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.3",
+    "ts-jest": "^24.1.0",
+    "ts-node": "8.4.1",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "3.6.3"
+  },
+  "dependencies": {
+    "@gql2ts/from-schema": "^1.10.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.1.0",
+    "graphql-import": "^0.7.1",
+    "graphql-request": "^1.8.2",
+    "graphql-tools": "^4.0.5",
+    "graphql-yoga": "^1.18.3",
+    "ioredis": "^4.14.1",
+    "node-fetch": "^2.6.0",
+    "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
+    "sparkpost": "^2.1.4",
+    "typeorm": "0.2.19",
+    "uuid": "^3.3.3",
+    "yup": "^0.27.0"
+  },
+  "jest": {
+    "globalSetup": "./src/test-utils/callSetup.js",
+    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
