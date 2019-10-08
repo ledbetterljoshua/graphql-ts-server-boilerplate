@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon --exec ts-node --files src/index.ts",
+    "start": "cross-env NODE_ENV=development nodemon --ext js,ts,graphql --exec 'yarn run gen && ts-node --files src/index.ts' --ignore src/types/schema.d.ts",
     "test-dev": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --watchAll",
     "test": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --forceExit",
-    "gen": "cross-env TS_NODE_FILES=true ts-node src/scripts/createTypes.ts --forceExit"
+    "gen": "cross-env TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
+    "genereate-types": "yarn run gen -- --forceExit"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

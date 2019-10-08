@@ -3,6 +3,7 @@ import { ValidationError } from "yup";
 type Error = {
   path: string;
   message: string;
+  extra?: string;
 };
 
 export const formatYupError = (err: ValidationError): Error[] => {
