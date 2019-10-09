@@ -24,7 +24,11 @@ export const resolvers: ResolverMap = {
     bye2: () => "die"
   },
   Mutation: {
-    login: async (_, { email, password }: GQL.ILoginOnMutationArguments) => {
+    login: async (
+      _,
+      { email, password }: GQL.ILoginOnMutationArguments,
+      { session }
+    ) => {
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
@@ -40,6 +44,8 @@ export const resolvers: ResolverMap = {
       if (!user.confirmed) {
         return [confirmEmailError];
       }
+
+      session.userId = user.id;
 
       return null;
     }

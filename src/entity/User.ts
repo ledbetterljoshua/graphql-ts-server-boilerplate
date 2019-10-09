@@ -1,3 +1,4 @@
+import * as bcrypt from "bcryptjs";
 import {
   Entity,
   Column,
@@ -23,5 +24,9 @@ export class User extends BaseEntity {
   @BeforeInsert()
   async setId() {
     this.id = v4();
+  }
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
   }
 }
