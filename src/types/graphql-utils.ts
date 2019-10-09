@@ -1,15 +1,7 @@
 import { Redis } from "ioredis";
 
-export interface Session {
+export interface Session extends Express.Session {
   userId?: string;
-  cookie: {
-    userId?: string;
-    path: string;
-    _expires: Date;
-    originalMaxAge: number;
-    httpOnly: boolean;
-    secure: boolean;
-  };
 }
 
 export type Resolver = (

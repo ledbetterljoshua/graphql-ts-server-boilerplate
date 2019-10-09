@@ -1,6 +1,6 @@
-import { User } from "../../entity/User";
+import { User } from "../../../entity/User";
 import { Connection } from "typeorm";
-import { createTestConn } from "../../test-utils/createTestConn";
+import { createTestConn } from "../../../test-utils/createTestConn";
 import request from "graphql-request";
 import { errorMessages } from "./constants";
 

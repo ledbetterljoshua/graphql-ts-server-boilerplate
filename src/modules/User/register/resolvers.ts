@@ -1,10 +1,10 @@
-import { ResolverMap } from "../../types/graphql-utils";
-import { User } from "../../entity/User";
-import { getErrorData } from "../../utils/getErrorData";
+import { ResolverMap } from "../../../types/graphql-utils";
+import { User } from "../../../entity/User";
+import { getErrorData } from "../../../utils/getErrorData";
 import * as yup from "yup";
-import { formatYupError } from "../../utils/formatYupError";
+import { formatYupError } from "../../../utils/formatYupError";
 import { errorMessages } from "./constants";
-import { createConfirmEmailLink } from "../../utils/createConfirmEmailLink";
+import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
 // import { sendEmail } from "../../utils/sendEmail";
 
 const isTesting = process.env.NODE_ENV === "test";

@@ -1,5 +1,5 @@
-import { ResolverMap } from "../../types/graphql-utils";
-import { User } from "../../entity/User";
+import { ResolverMap } from "../../../types/graphql-utils";
+import { User } from "../../../entity/User";
 import { errorMessages } from "./constants";
 import * as bcrypt from "bcryptjs";
 // import { User } from "../../entity/User";

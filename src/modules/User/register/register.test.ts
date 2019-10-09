@@ -1,9 +1,9 @@
 import { request } from "graphql-request";
-import { User } from "../../entity/User";
+import { User } from "../../../entity/User";
 import { errorMessages } from "./constants";
 // import { createTypeormConnection } from "../../utils/createTypeormConnection";
 import { Connection } from "typeorm";
-import { createTestConn } from "../../test-utils/createTestConn";
+import { createTestConn } from "../../../test-utils/createTestConn";
 
 const {
   duplicateEmail,
