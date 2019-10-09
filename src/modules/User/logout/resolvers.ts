@@ -6,15 +6,10 @@ export const resolvers: ResolverMap = {
   },
   Mutation: {
     logout: (_, __, { session }) => {
-      return session.destroy(
-        err =>
-          new Promise(res => {
-            if (err) {
-              console.log(err);
-            }
-            res(true);
-          })
-      );
+      session.destroy(err => {
+        console.log(err);
+      });
+      return true;
     }
   }
 };

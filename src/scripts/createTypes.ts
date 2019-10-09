@@ -4,7 +4,9 @@ import { join } from "path";
 
 import { getSchemas } from "../utils/getGraphqlSchemas";
 
-const types = generateNamespace("GQL", getSchemas());
+const schemas = getSchemas();
+
+const types = generateNamespace("GQL", schemas);
 
 writeFile(join(__dirname, "../types/schema.d.ts"), types, err => {
   console.log(err);
