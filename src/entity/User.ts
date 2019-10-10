@@ -24,7 +24,7 @@ export class User extends BaseEntity {
   @Column("boolean", { default: false })
   accountLocked: boolean;
 
-  @Column("text", { default: "" })
+  @Column("text", { default: "", nullable: true })
   accountLockedReason: string;
 
   @BeforeInsert()
