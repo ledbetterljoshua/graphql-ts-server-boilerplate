@@ -1,11 +1,11 @@
 import fetch from "node-fetch";
 
 import { createConfirmEmailLink } from "./createConfirmEmailLink";
-import { User } from "../entity/User";
+import { User } from "../../../entity/User";
 // import { createTypeormConnection } from "./createTypeormConnection";
-import { redis } from "../redis";
+import { redis } from "../../../redis";
 import { Connection } from "typeorm";
-import { createTestConn } from "../test-utils/createTestConn";
+import { createTestConn } from "../../../test-utils/createTestConn";
 
 let userId = "";
 

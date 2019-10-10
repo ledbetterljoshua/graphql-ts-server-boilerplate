@@ -3,7 +3,7 @@ import { User } from "../../../entity/User";
 import { getErrorData } from "../../../utils/getErrorData";
 import * as yup from "yup";
 import { formatYupError } from "../../../utils/formatYupError";
-import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
+import { createConfirmEmailLink } from "./createConfirmEmailLink";
 // import { sendEmail } from "../../utils/sendEmail";
 
 import { duplicateEmail } from "../shared/errorMessages";
