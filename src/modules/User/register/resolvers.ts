@@ -3,29 +3,20 @@ import { User } from "../../../entity/User";
 import { getErrorData } from "../../../utils/getErrorData";
 import * as yup from "yup";
 import { formatYupError } from "../../../utils/formatYupError";
-import { errorMessages } from "./constants";
 import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
 // import { sendEmail } from "../../utils/sendEmail";
 
+import { duplicateEmail } from "../shared/errorMessages";
+import {
+  emailValidation,
+  registerPasswordValidation
+} from "../../../yupSchemas";
+
 const isTesting = process.env.NODE_ENV === "test";
 
-const {
-  duplicateEmail,
-  emailNotLongEnough,
-  invalidEmail,
-  passwordNotLongEnough
-} = errorMessages;
-
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .min(3, emailNotLongEnough)
-    .max(255)
-    .email(invalidEmail),
-  password: yup
-    .string()
-    .min(6, passwordNotLongEnough)
-    .max(255)
+  email: emailValidation,
+  password: registerPasswordValidation
 });
 
 export const resolvers: ResolverMap = {

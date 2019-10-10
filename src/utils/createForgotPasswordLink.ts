@@ -1,0 +1,9 @@
+import { v4 } from "uuid";
+import { forgotPasswordPrefix } from "../constants";
+import { redis } from "../redis";
+
+export const createForgotPasswordLink = async (url: string, userId: string) => {
+  const id = v4();
+  await redis.set(`${forgotPasswordPrefix}${id}`, userId, "ex", 60 * 20);
+  return `${url}/change-password/${id}`;
+};

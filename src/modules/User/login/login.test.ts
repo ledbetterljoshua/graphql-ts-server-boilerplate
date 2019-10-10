@@ -1,8 +1,8 @@
 import { User } from "../../../entity/User";
 import { Connection } from "typeorm";
 import { createTestConn } from "../../../test-utils/createTestConn";
-import { errorMessages } from "./constants";
 import { TestClient } from "../../../utils/TestClient";
+import { invalidLogin, confirmEmailAddress } from "../shared/errorMessages";
 
 const email = "Joshua@gmail.com";
 const password = "HAHAHAHAH";
@@ -15,7 +15,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  conn.close();
+  await conn.close();
 });
 
 const loginExpectError = async (
@@ -39,25 +39,15 @@ const loginExpectError = async (
 describe("Login", () => {
   test("email not found", async () => {
     const client = new TestClient();
-    await loginExpectError(
-      client,
-      "bad@email.com",
-      "whatever",
-      errorMessages.invalidLogin
-    );
+    await loginExpectError(client, "bad@email.com", "whatever", invalidLogin);
   });
   test("has an invalid password", async () => {
     const client = new TestClient();
-    await loginExpectError(
-      client,
-      email,
-      "aslkdfjaksdljf",
-      errorMessages.invalidLogin
-    );
+    await loginExpectError(client, email, "aslkdfjaksdljf", invalidLogin);
   });
   test("email not confirmed", async () => {
     const client = new TestClient();
-    await loginExpectError(client, email, password, errorMessages.confirmEmail);
+    await loginExpectError(client, email, password, confirmEmailAddress);
   });
   test("confirms email and logs in", async () => {
     await User.update({ email }, { confirmed: true });

@@ -13,13 +13,13 @@ let conn: Connection;
 beforeAll(async () => {
   conn = await createTestConn();
   const user = await User.create({
-    email: "bob5@bob.com",
+    email: "bob4@bob.com",
     password: "jlkajoioiqwe"
   }).save();
   userId = user.id;
 });
 afterAll(async () => {
-  conn.close();
+  await conn.close();
 });
 
 const HOST = process.env.TEST_HOST as string;

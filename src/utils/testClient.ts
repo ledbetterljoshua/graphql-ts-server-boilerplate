@@ -76,4 +76,19 @@ export class TestClient {
       }
     });
   }
+  async forgotPasswordChange(newPassword: string, key: string) {
+    return post(url, {
+      ...this.options,
+      body: {
+        query: `
+          mutation {
+            forgotPasswordChange(newPassword: "${newPassword}", key: "${key}") {
+              path
+              message
+            }
+          }
+        `
+      }
+    });
+  }
 }

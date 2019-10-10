@@ -1,15 +1,14 @@
 import { User } from "../../../entity/User";
-import { errorMessages } from "./constants";
 import { Connection } from "typeorm";
 import { createTestConn } from "../../../test-utils/createTestConn";
 import { TestClient } from "../../../utils/testClient";
 
-const {
+import {
   duplicateEmail,
   emailNotLongEnough,
   invalidEmail,
   passwordNotLongEnough
-} = errorMessages;
+} from "../shared/errorMessages";
 
 const email = "test2@gmail.com";
 const password = "YouHaveNoPowerHere";
@@ -21,7 +20,7 @@ beforeAll(async () => {
   conn = await createTestConn();
 });
 afterAll(async () => {
-  conn.close();
+  await conn.close();
 });
 
 describe("A register mutation", () => {

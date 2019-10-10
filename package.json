@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon --ext js,ts,graphql --exec 'yarn run gen && ts-node --files src/index.ts' --ignore src/types/schema.d.ts",
     "test-dev": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --watchAll",
-    "test": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --runInBand --forceExit",
+    "test": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --detectOpenHandles --forceExit",
     "gen": "cross-env TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
     "genereate-types": "yarn run gen -- --forceExit",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
@@ -19,6 +19,7 @@
     }
   },
   "devDependencies": {
+    "@gql2ts/types": "^1.9.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/connect-redis": "^0.0.11",
     "@types/express": "^4.17.1",
@@ -31,6 +32,7 @@
     "@types/request-promise": "^4.1.44",
     "@types/sparkpost": "^2.1.4",
     "@types/uuid": "^3.4.5",
+    "@types/ws": "^6.0.3",
     "@types/yup": "^0.26.24",
     "cross-env": "^6.0.3",
     "gql2ts": "^1.10.1",
@@ -87,7 +89,7 @@
   },
   "lint-staged": {
     "*": [
-      "prettier --write",
+      "prettier --no-verify --write",
       "git add"
     ]
   }

@@ -1,0 +1,8 @@
+node_modules
+.env
+.prettierignore
+.gitignore
+*.json
+*.lock
+*.log
+dist

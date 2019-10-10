@@ -1,4 +1,3 @@
-import { Redis } from "ioredis";
 import { Request } from "express";
 import { User } from "../entity/User";
 
@@ -7,7 +6,6 @@ export interface Session extends Express.Session {
 }
 
 export interface Context {
-  redis: Redis;
   url: string;
   session: Session;
   sessionID: Request["sessionID"];

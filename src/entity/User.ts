@@ -21,6 +21,12 @@ export class User extends BaseEntity {
   @Column("boolean", { default: false })
   confirmed: boolean;
 
+  @Column("boolean", { default: false })
+  accountLocked: boolean;
+
+  @Column("text", { default: "" })
+  accountLockedReason: string;
+
   @BeforeInsert()
   async setId() {
     this.id = v4();

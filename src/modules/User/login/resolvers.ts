@@ -1,16 +1,13 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { User } from "../../../entity/User";
-import { errorMessages } from "./constants";
 import * as bcrypt from "bcryptjs";
 import { userSessionIdPrefix } from "../../../constants";
 import { redis } from "../../../redis";
-// import { User } from "../../entity/User";
-// import { getErrorData } from "../../utils/getErrorData";
-// import { formatYupError } from "../../utils/formatYupError";
-// import { createConfirmEmailLink } from "../../utils/createConfirmEmailLink";
-
-// const isTesting = process.env.NODE_ENV === "test";
-const { invalidLogin, confirmEmail } = errorMessages;
+import {
+  invalidLogin,
+  confirmEmailAddress,
+  forgotPasswordLockedError
+} from "../shared/errorMessages";
 
 const invalidEmailError = {
   path: "email",
@@ -18,7 +15,7 @@ const invalidEmailError = {
 };
 const confirmEmailError = {
   path: "email",
-  message: confirmEmail
+  message: confirmEmailAddress
 };
 
 export const resolvers: ResolverMap = {
@@ -35,6 +32,15 @@ export const resolvers: ResolverMap = {
 
       if (!user) {
         return [invalidEmailError];
+      }
+
+      if (user.accountLocked) {
+        return [
+          {
+            path: "email",
+            message: `${forgotPasswordLockedError} - ${user.accountLockedReason}`
+          }
+        ];
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);

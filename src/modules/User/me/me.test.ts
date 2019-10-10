@@ -4,7 +4,7 @@ import { TestClient } from "../../../utils/TestClient";
 import { createTestConn } from "../../../test-utils/createTestConn";
 
 let conn: Connection;
-const email = "bob5@bob.com";
+const email = "bob3@bob.com";
 const password = "jlkajoioiqwe";
 
 const client = new TestClient();
@@ -19,7 +19,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  conn.close();
+  await conn.close();
 });
 
 describe("me", () => {
