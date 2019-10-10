@@ -7,8 +7,12 @@
     "test-dev": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --watchAll",
     "test": "cross-env NODE_ENV=test TS_NODE_FILES=true jest --runInBand --forceExit",
     "gen": "cross-env TS_NODE_FILES=true ts-node src/scripts/createTypes.ts",
-    "genereate-types": "yarn run gen -- --forceExit",
-    "pre-commit": "npm test"
+    "genereate-types": "yarn run gen -- --forceExit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
