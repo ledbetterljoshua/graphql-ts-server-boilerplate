@@ -17,8 +17,8 @@ export const resolvers: ResolverMap = {
 
         const promises: any[] = [];
 
-        for (let i = 0; i < sessionIds.length; i += 1) {
-          promises.push(redis.del(`${redisSessionPrefix}${sessionIds[i]}`));
+        for (const sess of sessionIds) {
+          promises.push(redis.del(`${redisSessionPrefix}${sess}`));
         }
         await Promise.all(promises);
 
