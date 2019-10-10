@@ -9,6 +9,7 @@ import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import { redis } from "./redis";
 import { redisSessionPrefix } from "./constants";
+import { getViewerFromSession } from "./utils/getViewerFromSession";
 
 const RedisStore = connectRedis(session);
 
@@ -19,10 +20,12 @@ export const startServer = async (): Promise<Server> => {
   const server = new GraphQLServer({
     schema: schemas,
     context: ({ request }) => {
+      const viewer = getViewerFromSession(request!.session!);
       return {
         url: `${request.protocol}://${request.get("host")}`,
         session: request.session,
-        sessionID: request.sessionID
+        sessionID: request.sessionID,
+        viewer
       };
     }
   });

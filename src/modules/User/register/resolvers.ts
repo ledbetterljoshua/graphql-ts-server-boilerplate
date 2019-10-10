@@ -30,7 +30,7 @@ const schema = yup.object().shape({
 
 export const resolvers: ResolverMap = {
   Query: {
-    bye: () => "die"
+    bye: (_, __, { viewer }) => viewer
   },
   Mutation: {
     register: async (_, args: GQL.IRegisterOnMutationArguments, { url }) => {

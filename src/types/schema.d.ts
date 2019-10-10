@@ -25,7 +25,7 @@ __typename: "Query";
 bye2: string | null;
 dummy: string | null;
 me: IUser | null;
-bye: string | null;
+bye: IUser | null;
 }
 
 interface IUser {
