@@ -8,6 +8,7 @@ import { confirmEmail } from "./routes/confirmEmail";
 import * as session from "express-session";
 import * as connectRedis from "connect-redis";
 import { redis } from "./redis";
+import { redisSessionPrefix } from "./constants";
 
 const RedisStore = connectRedis(session);
 
@@ -20,7 +21,8 @@ export const startServer = async (): Promise<Server> => {
     context: ({ request }) => {
       return {
         url: `${request.protocol}://${request.get("host")}`,
-        session: request.session
+        session: request.session,
+        sessionID: request.sessionID
       };
     }
   });
@@ -28,7 +30,10 @@ export const startServer = async (): Promise<Server> => {
 
   server.express.use(
     session({
-      store: new RedisStore({ client: redis as any }),
+      store: new RedisStore({
+        client: redis as any,
+        prefix: redisSessionPrefix
+      }),
       name: "qid",
       secret: process.env.USER_SESSION_SECRET!,
       resave: false,
