@@ -11,11 +11,11 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
     "format": "npm run prettier -- --write",
-    "validate": "npm run test && npm run lint"
+    "validate": "npm run lint && npm run test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run validate && lint-staged"
+      "pre-commit": "lint-staged && npm run validate"
     }
   },
   "devDependencies": {
