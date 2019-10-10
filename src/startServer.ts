@@ -9,7 +9,7 @@ import { getServerPort } from "./utils/getServerPort";
 import { cors } from "./cors";
 
 export const startServer = async (): Promise<Server> => {
-  console.log("hello");
+  // console.log("hello");
   const port = getServerPort();
   const server = getGraphqlServer();
 
