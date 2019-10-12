@@ -8,10 +8,12 @@ import {
 export const registerPasswordValidation = yup
   .string()
   .min(3, passwordNotLongEnough)
-  .max(255);
+  .max(255)
+  .required();
 
 export const emailValidation = yup
   .string()
   .min(3, emailNotLongEnough)
   .max(255)
-  .email(invalidEmail);
+  .email(invalidEmail)
+  .required();
