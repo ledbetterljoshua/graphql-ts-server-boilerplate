@@ -1,29 +1,45 @@
-import * as Sparkpost from "sparkpost";
-const client = new Sparkpost(process.env.SPARKPOST_API_KEY);
+import * as nodemailer from "nodemailer";
 
-export const sendEmail = async (address: string, url: string) => {
-  try {
-    const data = await client.transmissions.send({
-      options: {
-        sandbox: true
-      },
-      content: {
-        from: "testing@sparkpostbox.com",
-        subject: "Confirm Email!",
-        html: `
-          <html>
-            <body>
-              <a href="${url}" target="_blank">Confirm Your Email</a>
-            </body>
-          </html>
-          `
-      },
-      recipients: [{ address }]
+export const sendEmail = async (
+  recipient: string,
+  url: string,
+  linkText: string
+) => {
+  nodemailer.createTestAccount((err1, account) => {
+    if (err1) {
+      console.log(err1);
+    }
+    const transporter = nodemailer.createTransport({
+      host: account.smtp.host,
+      port: account.smtp.port,
+      secure: account.smtp.secure,
+      auth: {
+        user: account.user,
+        pass: account.pass
+      }
     });
-    console.log("Woohoo! You just sent your first mailing!");
-    console.log(data);
-  } catch (err) {
-    console.log("Whoops! Something went wrong");
-    console.log(err);
-  }
+
+    const message = {
+      from: "Sender Name <sender@example.com>",
+      to: `Recipient <${recipient}>`,
+      subject: "Nodemailer is unicode friendly ✔",
+      text: "Hello to myself!",
+      html: `<html>
+        <body>
+        <p>Testing SparkPost - the world's most awesomest email service!</p>
+        <a href="${url}">${linkText}</a>
+        </body>
+        </html>`
+    };
+
+    transporter.sendMail(message, (err, info) => {
+      if (err) {
+        console.log("Error occurred. " + err.message);
+      }
+
+      console.log("Message sent: %s", info.messageId);
+      // Preview only available when sending through an Ethereal account
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+  });
 };
