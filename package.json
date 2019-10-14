@@ -11,7 +11,8 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx|graphql|vue)\"",
     "format": "npm run prettier -- --write",
-    "validate": "npm run lint && npm run test"
+    "validate": "npm run lint && npm run test",
+    "genMigration": "npx ts-node ./node_modules/.bin/typeorm migration:generate -d ./src/migrations -c development"
   },
   "husky": {
     "hooks": {

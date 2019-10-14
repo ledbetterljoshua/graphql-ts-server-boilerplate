@@ -4,12 +4,17 @@ import {
   Column,
   BaseEntity,
   PrimaryGeneratedColumn,
-  BeforeInsert
+  BeforeInsert,
+  OneToMany
 } from "typeorm";
 import { v4 } from "uuid";
+import { Post } from "./Post";
 
 @Entity("users")
 export class User extends BaseEntity {
+  @OneToMany(() => Post, post => post.user)
+  posts: Post[];
+
   @PrimaryGeneratedColumn("uuid") id: string;
 
   @Column("varchar", { length: 255 })
@@ -31,6 +36,7 @@ export class User extends BaseEntity {
   async setId() {
     this.id = v4();
   }
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);

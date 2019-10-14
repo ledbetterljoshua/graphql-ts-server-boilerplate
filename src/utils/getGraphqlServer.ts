@@ -6,8 +6,8 @@ const schemas = getSchemas();
 export const getGraphqlServer = () =>
   new GraphQLServer({
     schema: schemas,
-    context: ({ request }) => {
-      const viewer = getViewerFromSession(request!.session!);
+    context: async ({ request }) => {
+      const viewer = await getViewerFromSession(request!.session!);
       return {
         url: `${request.protocol}://${request.get("host")}`,
         session: request.session,

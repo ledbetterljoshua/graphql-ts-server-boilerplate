@@ -17,7 +17,9 @@ export const createTypeormConnection = async (): Promise<Connection | null> => {
     ? { ...defaultConnectionOptions, url: DATABASE_URL, entities: [User] }
     : defaultConnectionOptions;
 
-  return createConnection({
+  const conn = await createConnection({
     ...connectionOptions
-  } as any);
+  });
+  await conn.runMigrations();
+  return conn;
 };

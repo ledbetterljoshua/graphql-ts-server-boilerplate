@@ -22,6 +22,7 @@ declare namespace GQL {
 
   interface IQuery {
     __typename: "Query";
+    findPosts: Array<IPost>;
     dummy2: string | null;
     bye2: string | null;
     dummy: string | null;
@@ -29,19 +30,38 @@ declare namespace GQL {
     bye: IUser | null;
   }
 
+  interface IPost {
+    __typename: "Post";
+    id: string;
+    title: string;
+    details: string;
+    user: IUser | null;
+  }
+
   interface IUser {
     __typename: "User";
     id: string;
     email: string;
+    posts: Array<IPost>;
   }
 
   interface IMutation {
     __typename: "Mutation";
+    createPost: boolean;
+    deletePost: boolean;
     sendForgotPasswordEmail: boolean | null;
     forgotPasswordChange: Array<IError> | null;
     login: Array<IError> | null;
     logout: boolean | null;
     register: Array<IError> | null;
+  }
+
+  interface ICreatePostOnMutationArguments {
+    input: ICreatePostInput;
+  }
+
+  interface IDeletePostOnMutationArguments {
+    id: string;
   }
 
   interface ISendForgotPasswordEmailOnMutationArguments {
@@ -61,6 +81,11 @@ declare namespace GQL {
   interface IRegisterOnMutationArguments {
     email: string;
     password: string;
+  }
+
+  interface ICreatePostInput {
+    title: string;
+    details: string;
   }
 
   interface IError {
