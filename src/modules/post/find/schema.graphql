@@ -1,8 +1,17 @@
+type Upvote {
+  id: ID!
+  postId: String
+  users: [User!]
+}
+
 type Post {
   id: ID!
   title: String!
   details: String!
   user: User
+  upvotes: [Upvote!]
+  upvoteCount: Int!
+  upvoted: Boolean!
 }
 
 type Query {

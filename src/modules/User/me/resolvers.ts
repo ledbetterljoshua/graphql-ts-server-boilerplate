@@ -8,7 +8,7 @@ export const resolvers: ResolverMap = {
     me: createMiddleware(middleware, (_, __, { session }) => {
       return User.findOne({
         where: { id: session.userId },
-        relations: ["posts"]
+        relations: ["posts", "posts.upvotes"]
       });
     })
   }

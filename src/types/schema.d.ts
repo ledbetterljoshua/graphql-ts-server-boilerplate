@@ -36,6 +36,9 @@ declare namespace GQL {
     title: string;
     details: string;
     user: IUser | null;
+    upvotes: Array<IUpvote> | null;
+    upvoteCount: number;
+    upvoted: boolean;
   }
 
   interface IUser {
@@ -45,10 +48,18 @@ declare namespace GQL {
     posts: Array<IPost>;
   }
 
+  interface IUpvote {
+    __typename: "Upvote";
+    id: string;
+    postId: string | null;
+    users: Array<IUser> | null;
+  }
+
   interface IMutation {
     __typename: "Mutation";
-    createPost: Array<IError> | null;
-    deletePost: Array<IError> | null;
+    createPost: Array<IPostResponse> | null;
+    deletePost: Array<IPostResponse> | null;
+    upvotePost: Array<IPostResponse> | null;
     sendForgotPasswordEmail: boolean | null;
     forgotPasswordChange: Array<IError> | null;
     login: Array<IError> | null;
@@ -62,6 +73,10 @@ declare namespace GQL {
 
   interface IDeletePostOnMutationArguments {
     id: string;
+  }
+
+  interface IUpvotePostOnMutationArguments {
+    id?: string | null;
   }
 
   interface ISendForgotPasswordEmailOnMutationArguments {
@@ -88,11 +103,17 @@ declare namespace GQL {
     details: string;
   }
 
+  interface IPostResponse {
+    __typename: "PostResponse";
+    path: string;
+    message: string;
+    post: IPost | null;
+  }
+
   interface IError {
     __typename: "Error";
     path: string;
     message: string;
-    id: string | null;
   }
 }
 
