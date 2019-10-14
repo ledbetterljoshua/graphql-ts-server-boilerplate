@@ -4,5 +4,5 @@ input CreatePostInput {
 }
 
 type Mutation {
-  createPost(input: CreatePostInput!): Boolean!
+  createPost(input: CreatePostInput!): [PostResponse!]
 }

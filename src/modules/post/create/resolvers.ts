@@ -1,20 +1,24 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Post } from "../../../entity/Post";
 import { User } from "../../../entity/User";
-// import { listingCacheKey } from "../../../constants";
-// import { isAuthenticated } from "../../shared/isAuthenticated";
+import { notAuthenticated } from "../shared/errorMessages";
 
-// house.png
-// aseq2-house.png
-// image/png
-// image/jpeg
-// ['image', 'jpeg']
-// 'jpeg'
+export const notAuthenticatedError = {
+  post: null,
+  path: "authentication",
+  message: notAuthenticated
+};
+export const successObject = {
+  post: null,
+  path: "create post",
+  message: "success!"
+};
 
-const isAuthenticated = (viewer: User) => {
+const isAuthenticated = (viewer: User | undefined) => {
   if (!viewer || !viewer.confirmed || viewer.accountLocked) {
-    throw new Error("Not Authenticated");
+    return false;
   }
+  return true;
 };
 
 export const resolvers: ResolverMap = {
@@ -22,10 +26,9 @@ export const resolvers: ResolverMap = {
     createPost: async (_, { input: { ...data } }, { viewer }) => {
       // isAuthenticated(session);
       // const pictureUrl = picture ? await processUpload(picture) : null;
-      if (!viewer) {
-        return false;
+      if (!viewer || !isAuthenticated(viewer)) {
+        return [notAuthenticatedError];
       }
-      isAuthenticated(viewer);
 
       const post = await Post.create({
         ...data,
@@ -33,9 +36,8 @@ export const resolvers: ResolverMap = {
       }).save();
 
       // redis.lpush(listingCacheKey, JSON.stringify(listing));
-      console.log("inside createPost", post);
 
-      return true;
+      return [{ ...successObject, post }];
     }
   }
 };

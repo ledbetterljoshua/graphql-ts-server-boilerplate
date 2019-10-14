@@ -1,0 +1,5 @@
+type PostResponse {
+  path: String!
+  message: String!
+  post: Post
+}

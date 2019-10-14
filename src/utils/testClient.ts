@@ -18,6 +18,25 @@ mutation {
   }
 }
 `;
+const createPostQuery = (title: string, details: string) => `
+mutation {
+  createPost(input: {title: "${title}", details: "${details}"}) {
+    path
+    message
+    post { 
+      id
+    }
+  }
+}
+`;
+const deletePostQuery = (id: string) => `
+mutation {
+  deletePost(id: "${id}") {
+    path
+    message
+  }
+}
+`;
 
 export class TestClient {
   options: {
@@ -31,6 +50,23 @@ export class TestClient {
       jar: jar(),
       json: true
     };
+  }
+
+  async createPost(title: string, details: string) {
+    return post(url, {
+      ...this.options,
+      body: {
+        query: createPostQuery(title, details)
+      }
+    });
+  }
+  async deletePost(id: string) {
+    return post(url, {
+      ...this.options,
+      body: {
+        query: deletePostQuery(id)
+      }
+    });
   }
 
   async register(email: string, password: string) {

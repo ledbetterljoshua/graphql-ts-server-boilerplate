@@ -47,8 +47,8 @@ declare namespace GQL {
 
   interface IMutation {
     __typename: "Mutation";
-    createPost: boolean;
-    deletePost: boolean;
+    createPost: Array<IError> | null;
+    deletePost: Array<IError> | null;
     sendForgotPasswordEmail: boolean | null;
     forgotPasswordChange: Array<IError> | null;
     login: Array<IError> | null;
@@ -92,6 +92,7 @@ declare namespace GQL {
     __typename: "Error";
     path: string;
     message: string;
+    id: string | null;
   }
 }
 
