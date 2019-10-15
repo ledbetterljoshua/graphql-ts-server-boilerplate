@@ -1,6 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
 import { getSchemas } from "./getGraphqlSchemas";
 import { getViewerFromSession } from "./getViewerFromSession";
+import { userLoader } from "../loaders/userLoader";
 
 const schemas = getSchemas();
 export const getGraphqlServer = () =>
@@ -12,6 +13,7 @@ export const getGraphqlServer = () =>
         url: `${request.protocol}://${request.get("host")}`,
         session: request.session,
         sessionID: request.sessionID,
+        userLoader: userLoader(),
         viewer
       };
     }

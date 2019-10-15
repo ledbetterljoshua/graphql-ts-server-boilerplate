@@ -8,7 +8,6 @@ export const resolvers: ResolverMap = {
       return (post.upvotes && post.upvotes.length) || 0;
     },
     upvoted: async (post, _, { viewer }) => {
-      console.log("post, _, viewer", post, _, viewer);
       const getUpvoted = (vote: Upvote) => {
         if (!vote || !viewer) return;
         return (vote.userId = viewer.id);
@@ -16,12 +15,12 @@ export const resolvers: ResolverMap = {
       if (!post.upvotes) return false;
       const userUpvoted = post.upvotes.map(getUpvoted);
       return Boolean(userUpvoted.length);
-    }
+    },
+    user: async (_, __, { viewer, userLoader }) => userLoader.load(viewer!.id)
   },
   Query: {
     findPosts: async () => {
       const posts = await Post.find({ relations: ["user", "upvotes"] });
-      console.log("posts", posts);
       return posts;
     }
   }
