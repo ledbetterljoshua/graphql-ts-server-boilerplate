@@ -10,8 +10,8 @@ import {
 } from "./resolvers";
 
 let conn: Connection;
-const email = "createPostTest@bob.com";
-const email2 = "createSecondPostTest@bob.com";
+const email = "deletePostTest@bob.com";
+const email2 = "deleteSecondPostTest@bob.com";
 const password = "jlkajoioiqwe";
 const fakePostId = "0753b019-6006-414a-9c9b-2f7cf7f1b666";
 
@@ -38,7 +38,6 @@ afterAll(async () => {
 describe("delete post", () => {
   test("should fail with no logged in user", async () => {
     const response = await client.deletePost(fakePostId);
-    console.log("response.data", response.data);
     expect(response.data.deletePost).toEqual([userDoesNotExistError]);
   });
 
@@ -70,7 +69,9 @@ describe("delete post", () => {
         post: { id: postId }
       }
     ] = createPostResponse;
+    console.log("postId", postId);
     const response = await client.deletePost(postId);
+    console.log("response", response);
     expect(response.data.deletePost).toEqual([successObject]);
   });
 });

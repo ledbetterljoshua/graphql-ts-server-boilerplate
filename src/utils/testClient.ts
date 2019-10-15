@@ -29,6 +29,14 @@ mutation {
   }
 }
 `;
+const upvotePostQuery = (id: string) => `
+mutation {
+  upvotePost(id: "${id}") {
+    path
+    message
+  }
+}
+`;
 const deletePostQuery = (id: string) => `
 mutation {
   deletePost(id: "${id}") {
@@ -57,6 +65,15 @@ export class TestClient {
       ...this.options,
       body: {
         query: createPostQuery(title, details)
+      }
+    });
+  }
+
+  async upvotePost(id: string) {
+    return post(url, {
+      ...this.options,
+      body: {
+        query: upvotePostQuery(id)
       }
     });
   }

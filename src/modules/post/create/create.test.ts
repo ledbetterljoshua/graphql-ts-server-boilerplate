@@ -32,7 +32,6 @@ describe("create post", () => {
   test("should create post with logged in user", async () => {
     await client.login(email, password);
     const response = await client.createPost("title", "description");
-    console.log("response", response);
     expect(response.data.createPost[0].post).toHaveProperty("id");
   });
 });

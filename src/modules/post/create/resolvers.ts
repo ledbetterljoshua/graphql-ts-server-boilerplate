@@ -2,6 +2,7 @@ import { ResolverMap } from "../../../types/graphql-utils";
 import { Post } from "../../../entity/Post";
 import { User } from "../../../entity/User";
 import { notAuthenticated } from "../shared/errorMessages";
+import { Upvote } from "../../../entity/Upvote";
 
 export const notAuthenticatedError = {
   post: null,
@@ -32,6 +33,11 @@ export const resolvers: ResolverMap = {
 
       const post = await Post.create({
         ...data,
+        userId: viewer.id
+      }).save();
+
+      await Upvote.create({
+        postId: post.id,
         userId: viewer.id
       }).save();
 

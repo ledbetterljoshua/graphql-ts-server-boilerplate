@@ -11,7 +11,10 @@ import { Upvote } from "./Upvote";
 
 @Entity("posts")
 export class Post extends BaseEntity {
-  @ManyToOne(() => User, user => user.posts)
+  @ManyToOne(() => User, user => user.posts, {
+    cascade: true,
+    onDelete: "CASCADE"
+  })
   user: User;
 
   @OneToMany(() => Upvote, upvote => upvote.post)

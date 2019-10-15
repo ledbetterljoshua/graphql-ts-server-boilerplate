@@ -58,7 +58,7 @@ declare namespace GQL {
   interface IMutation {
     __typename: "Mutation";
     createPost: Array<IPostResponse> | null;
-    deletePost: Array<IPostResponse> | null;
+    deletePost: Array<IPostResponse>;
     upvotePost: Array<IPostResponse> | null;
     sendForgotPasswordEmail: boolean | null;
     forgotPasswordChange: Array<IError> | null;
